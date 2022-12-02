@@ -5,7 +5,7 @@ Ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/he
 ## TL;DR
 
 ```bash
-$ helm repo add rdomenzain https://charts.bitnami.com/bitnami
+$ helm repo add rdomenzain https://rdomenzain.github.io/helm-charts
 $ helm search repo rdomenzain
-$ helm install my-release bitnami/<chart>
+$ helm install my-release rdomenzain/<chart>
 ```
