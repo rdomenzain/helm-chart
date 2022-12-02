@@ -8,4 +8,4 @@ maintainers:
 name: kafka-connect
 sources:
   - https://github.com/rdomenzain/charts/tree/main/charts/kafka-connect
-version: 0.0.1
+version: 0.0.2
