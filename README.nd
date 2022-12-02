@@ -1,0 +1,11 @@
+# Helm Charts for Kubernetes
+
+Ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/helm).
+
+## TL;DR
+
+```bash
+$ helm repo add rdomenzain https://charts.bitnami.com/bitnami
+$ helm search repo rdomenzain
+$ helm install my-release bitnami/<chart>
+```
