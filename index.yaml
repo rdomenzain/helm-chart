@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  kafka-connect:
+  - apiVersion: v2
+    appVersion: 7.3.0
+    created: "2022-12-02T07:26:19.24614326Z"
+    description: A Helm chart for Kafka Connect on Kubernetes
+    digest: 50eba4c835340f2664988352826a5b4c2f0a2c062d3e428450488ebaf4cb2b68
+    home: https://github.com/rdomenzain/charts/tree/main/charts/kafka-connect
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: kafka-connect
+    sources:
+    - https://github.com/rdomenzain/helm-chart/tree/main/charts/kafka-connect
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/kafka-connect-0.0.2/kafka-connect-0.0.2.tgz
+    version: 0.0.2
+generated: "2022-12-02T07:26:19.24614766Z"
