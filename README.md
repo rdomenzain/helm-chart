@@ -5,7 +5,7 @@ Ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/he
 ## TL;DR
 
 ```bash
-$ helm repo add rdomenzain https://rdomenzain.github.io/helm-charts
+$ helm repo add rdomenzain https://rdomenzain.github.io/helm-chart
 $ helm search repo rdomenzain
 $ helm install my-release rdomenzain/<chart>
 ```
@@ -28,7 +28,7 @@ To install Helm, refer to the [Helm install guide](https://github.com/helm/helm#
 The following command allows you to download and install all the charts from this repository:
 
 ```bash
-$ helm repo add rdomenzain https://rdomenzain.github.io/helm-charts
+$ helm repo add rdomenzain https://rdomenzain.github.io/helm-chart
 ```
 
 ### Using Helm
