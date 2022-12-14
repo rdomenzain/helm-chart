@@ -12,7 +12,7 @@ body:
     attributes:
       label: Name and Version
       description: Name and version of the affected chart
-      placeholder: bitnami/wordpress 1.2.3
+      placeholder: rdomenzain/wordpress 1.2.3
     validations:
       required: true
   - type: textarea

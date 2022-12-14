@@ -1,0 +1,192 @@
+# Default values for weblate.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: weblate/weblate
+  tag: 4.14.2-1
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ''
+fullnameOverride: ''
+updateStrategy: Recreate
+
+# labels -- custom labels
+labels: {}
+
+# pre containers to upload files needed for weblate customization
+initContainers:
+  enabled: false
+  volumeName: weblate-customization
+  containers: []
+
+# adminEmail -- Email of Admin Account
+adminEmail: ''
+# adminUser -- Name of Admin Account
+adminUser: ''
+# adminPassword -- Password of Admin Account
+adminPassword: ''
+
+# existingSecret -- Name of existing secret,
+# Make sure it contains the keys postgresql-user, postgresql-password, redis-password, email-user, email-password, admin-user, admin-password
+# Also note to set the existingSecret values for the Redis and Postgresql subcharts
+existingSecret: ''
+
+# siteTile -- Site title
+siteTitle: Weblate
+# siteDomain -- Site domain
+siteDomain: chart-example.local
+
+# emailHost -- Host for sending emails
+emailHost: ''
+# emailPort -- Port for sending emails
+emailPort: 587
+# emailTLS -- Use TLS when sending emails
+emailTLS: true
+# emailSSL -- Use SSL when sending emails
+emailSSL: true
+# emailUser -- User name for sending emails
+emailUser: ''
+# emailPassword -- Password for sending emails
+emailPassword: ''
+
+# serverEmail -- Sender for outgoing emails
+serverEmail: ''
+# defaultFromEmail -- From email for outgoing emails
+defaultFromEmail: ''
+# allowedHosts -- Hosts that are allowed to connect
+allowedHosts: '*'
+
+# debug -- Enable debugging
+debug: '0'
+
+# caCertSecretName -- Secret containing a custom CA cert bundle to be mounted. See https://docs.weblate.org/en/latest/admin/install.html?highlight=certificates#using-custom-certificate-authority
+caCertSecretName: ''
+# caCertSubPath -- Name of the CA cert bundle in the secret, e.g. ca-certificates.crt or ca-bundle.crt
+caCertSubPath: ''
+
+# extraConfig -- Additional (environment) configs. Values will be evaluated as templates. See https://docs.weblate.org/en/latest/admin/install/docker.html#docker-environment
+extraConfig: {}
+
+# extraSecretConfig -- Same as `extraConfig`, but created as secrets. Values will be evaluated as Helm templates
+extraSecretConfig: {}
+
+# externalSecretName -- An external secret, in the same namespace, that will be use to set additionnal
+# (environment) configs.
+externalSecretName: ''
+
+# configOverride -- Config override. See https://docs.weblate.org/en/latest/admin/install/docker.html#custom-configuration-files
+configOverride: ''
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1000
+
+containerSecurityContext:
+  enabled: false
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  # Service annotations, use key:value pairs
+  annotations:
+
+ingress:
+  enabled: false
+  ingressClassName: ''
+  # Ingres annotations
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # Host names
+  hosts:
+  - host: chart-example.local
+    paths:
+    - path: /
+      pathType: Prefix
+
+  # TLS configuration
+  tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+persistence:
+  enabled: true
+
+  # persistence.existingClaim -- Use an existing volume claim
+  existingClaim: ''
+
+  # storageClass: "-"
+
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+  filestore_dir: /app/data
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+postgresql:
+  auth:
+  # PostgreSQL user should be a superuser to
+  # be able to install pg_trgm extension. Alternatively you can install it
+  # manually prior starting Weblate.
+    enablePostgresUser: true
+    postgresPassword: weblate
+    database: weblate
+    existingSecret: ''
+    secretKeys:
+      userPasswordKey: postgresql-password
+  service:
+    ports:
+      postgresql: 5432
+  enabled: true
+  # postgresql.postgresqlHost -- External postgres database endpoint, to be
+  # used if `postgresql.enabled == false`
+  # @default -- `None`
+  postgresqlHost:
+
+redis:
+  architecture: standalone
+  auth:
+    enabled: true
+    password: weblate
+    existingSecret: ''
+    existingSecretPasswordKey: redis-password
+  db: 1
+  enabled: true
+  # redis.redisHost -- External redis database endpoint, to be
+  # used if `redis.enabled == false`
+  # @default -- `None`
+  redisHost:
