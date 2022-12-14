@@ -28,7 +28,7 @@ jobs:
 
       - name: Add repos
         run: |
-          yq '.chart-repos' .github/chart-testing-config.yaml | while read line ; do
+          yq '.chart-repos' .github/chart-testing-config.yml | while read line ; do
             repodef="${line##- }"
             helm repo add "${repodef%%=*}" "${repodef##*=}"
           done
