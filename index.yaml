@@ -16,4 +16,30 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/kafka-connect-0.0.2/kafka-connect-0.0.2.tgz
     version: 0.0.2
-generated: "2022-12-02T07:26:19.24614766Z"
+  weblate:
+  - apiVersion: v2
+    appVersion: 0.14.2
+    created: "2022-12-14T23:05:54.738617625Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.3
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.3.14
+    description: Weblate is a free web-based translation management system.
+    digest: d837dcde8a8dde81ccb02c4d3ac08886322e04da01cd480d01b9702bd8126fd3
+    home: https://github.com/rdomenzain/charts/tree/main/charts/kafka-connect
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: weblate
+    sources:
+    - https://github.com/rdomenzain/helm-chart/tree/main/charts/weblate
+    type: application
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/weblate-0.0.1/weblate-0.0.1.tgz
+    version: 0.0.1
+generated: "2022-12-14T23:05:54.738630225Z"
