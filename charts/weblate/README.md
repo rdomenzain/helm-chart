@@ -5,8 +5,8 @@ Weblate is a free web-based translation management system.
 ## TL;DR;
 
 ```console
-$ helm repo add weblate https://helm.weblate.org
-$ helm install my-release weblate/weblate
+$ helm repo add rdomenzain https://rdomenzain.github.io/helm-chart
+$ helm install my-release rdomenzain/weblate
 ```
 
 ## Requirements

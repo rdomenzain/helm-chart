@@ -1,6 +1,9 @@
 # See https://github.com/helm/chart-testing#configuration
+chart-repos:
+- bitnami=https://charts.bitnami.com/bitnami
 remote: origin
 target-branch: main
 chart-dirs:
   - charts
-helm-extra-args: --timeout 600s
+helm-extra-args: --timeout 15m
+debug: true
