@@ -16,6 +16,25 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/kafka-connect-0.0.2/kafka-connect-0.0.2.tgz
     version: 0.0.2
+  metabase:
+  - apiVersion: v2
+    appVersion: v0.45.1
+    created: "2022-12-20T19:49:14.23035303Z"
+    description: The easy, open source way for everyone in your company to ask questions
+      and learn from data.
+    digest: c550dd54c32b34a04778ca8a851892c67a79ae416585ccbb7dc569346c2aad1b
+    home: https://github.com/rdomenzain/charts/tree/main/charts/metabase
+    icon: http://www.metabase.com/images/logo.svg
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: metabase
+    sources:
+    - https://github.com/rdomenzain/helm-chart/tree/main/charts/metabase
+    type: application
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/metabase-0.0.1/metabase-0.0.1.tgz
+    version: 0.0.1
   weblate:
   - apiVersion: v2
     appVersion: 0.14.2
@@ -42,4 +61,4 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/weblate-0.0.1/weblate-0.0.1.tgz
     version: 0.0.1
-generated: "2022-12-14T23:05:54.738630225Z"
+generated: "2022-12-20T19:49:14.23035843Z"
