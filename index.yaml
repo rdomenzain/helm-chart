@@ -16,6 +16,22 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/kafka-connect-0.0.2/kafka-connect-0.0.2.tgz
     version: 0.0.2
+  kafka-connect-ui:
+  - apiVersion: v1
+    appVersion: 0.9.7
+    created: "2023-01-30T19:29:29.7920241Z"
+    description: A Helm chart for Kafka Connect UI on Kubernetes
+    digest: ad1abf433f5d86e48865f8496de214ca05349d9e633cda92c94719629a008401
+    home: https://github.com/rdomenzain/charts/tree/main/charts/kafka-connect-ui
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: kafka-connect-ui
+    sources:
+    - https://github.com/rdomenzain/helm-chart/tree/main/charts/kafka-connect-ui
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/kafka-connect-ui-1.0.0/kafka-connect-ui-1.0.0.tgz
+    version: 1.0.0
   metabase:
   - apiVersion: v2
     appVersion: v0.45.1
@@ -86,4 +102,4 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/weblate-0.0.1/weblate-0.0.1.tgz
     version: 0.0.1
-generated: "2023-01-06T01:09:15.716624036Z"
+generated: "2023-01-30T19:29:29.7922026Z"
