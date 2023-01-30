@@ -1,0 +1,11 @@
+apiVersion: v1
+appVersion: "0.9.7"
+description: A Helm chart for Kafka Connect UI on Kubernetes
+home: https://github.com/rdomenzain/charts/tree/main/charts/kafka-connect-ui
+maintainers:
+  - name: rdomenzain
+    url: https://github.com/rdomenzain/
+name: kafka-connect-ui
+sources:
+  - https://github.com/rdomenzain/helm-chart/tree/main/charts/kafka-connect-ui
+version: 1.0.0
