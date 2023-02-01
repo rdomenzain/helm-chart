@@ -2,8 +2,8 @@ apiVersion: v2
 description: The easy, open source way for everyone in your company to ask questions and learn from data.
 name: metabase
 type: application
-version: 0.0.1
-appVersion: v0.45.1
+version: 1.0.0
+appVersion: v0.45.2.1
 home: https://github.com/rdomenzain/charts/tree/main/charts/metabase
 icon: http://www.metabase.com/images/logo.svg
 maintainers:
