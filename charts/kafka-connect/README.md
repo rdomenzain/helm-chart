@@ -47,7 +47,7 @@ The following table lists the configurable parameters of the Kafka Connect chart
 | Parameter | Description | Default |
 | --------- | ----------- | ------- |
 | `image` | Docker Image of Confluent Kafka Connect. | `confluentinc/cp-kafka-connect` |
-| `imageTag` | Docker Image Tag of Confluent Kafka Connect. | `7.3.3` |
+| `imageTag` | Docker Image Tag of Confluent Kafka Connect. | `7.4.0` |
 | `imagePullPolicy` | Docker Image Tag of Confluent Kafka Connect. | `IfNotPresent` |
 | `imagePullSecrets` | Secrets to be used for private registries. | see [values.yaml](values.yaml) for details |
 
