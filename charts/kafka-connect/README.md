@@ -64,6 +64,34 @@ The following table lists the configurable parameters of the Kafka Connect chart
 | `configurationOverrides` | Kafka Connect [configuration](https://docs.confluent.io/current/connect/references/allconfigs.html) overrides in the dictionary format. | see [values.yaml](values.yaml) for details |
 | `customEnv` | Custom environmental variables | `{}` |
 
+### Install Connectors
+
+If you want to install connectors, you can specify the connector plugins in the `connectorPlugins` parameter. For more information about the connector plugins, see [Confluent Hub](https://docs.confluent.io/current/connect/managing/extending.html#installing-plugins).
+
+
+| Parameter | Description | Default |
+| --------- | ----------- | ------- |
+| `connectorPlugins` | List of connector plugins to install. | see [values.yaml](values.yaml) for details |
+
+### Install Custom plugins
+
+The `customPlugins` parameter allows you to install custom plugins. Example:
+
+```yaml
+## Install custom plugins
+customPlugins:
+  - fileName: "kafka-connect.jar"
+    path: "/usr/share/confluent-hub-components"
+    urlDownload: "https://mydomain.com/kafka-connect.jar"
+    headers:
+      - name: "Authorization"
+        value: "Basic SECRET"
+```
+
+| Parameter | Description | Default |
+| --------- | ----------- | ------- |
+| `customPlugins` | List of custom plugins to install. | see [values.yaml](values.yaml) for details |
+
 ### Volumes
 
 | Parameter | Description | Default |

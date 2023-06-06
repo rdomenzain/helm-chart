@@ -102,11 +102,15 @@ spec:
             - /bin/bash
             - -c
             - |
-              # Install connector plugins
+              echo "Installing connector plugins..."
               {{- range $plugin := .Values.connectorPlugins }}
               confluent-hub install --no-prompt {{ $plugin }}
               {{ end }}
-              # Launch the Kafka Connect worker
+              {{- range .Values.customPlugins }}
+              echo "Downloading custom plugin: {{ .fileName }}"
+              curl -s -o {{ .path }}/{{ .fileName }} {{- range .headers }} --header '{{ .name }}: {{ .value }}'{{- end }} '{{ .urlDownload }}'
+              {{ end }}
+              echo "Launching Kafka Connect worker..."
               /etc/confluent/docker/run &
               # Don't exit
               sleep infinity
