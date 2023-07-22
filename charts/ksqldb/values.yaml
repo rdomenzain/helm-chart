@@ -1,0 +1,160 @@
+# Default values for ksqlDB.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+serviceAccountName: 
+
+## Image Info
+## ref: https://hub.docker.com/r/confluentinc/ksqldb-server
+image:
+  registry: docker.io
+  repository: confluentinc/ksqldb-server
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  pullPolicy: IfNotPresent
+imagePullSecrets:  []
+nameOverride: ""
+fullnameOverride: ""
+
+# KSQL configuration options
+## ref: https://docs.confluent.io/current/ksql/docs/installation/server-config/config-reference.html
+configurationOverrides: {}
+  # "opts": "-Dmax.request.size=2097152"
+  # "ksql.streams.producer.retries": "2147483647"
+
+## ksqlDB
+## ref: https://docs.ksqldb.io/en/latest/operate-and-deploy/capacity-planning/#scaling-ksqldb
+replicaCount: 1
+
+## ksqlDB Configuration
+## ref: https://docs.ksqldb.io/en/latest/operate-and-deploy/installation/install-ksqldb-with-docker/
+# heapOpts: -XX:MaxRAMPercentage=50.0 -XX:InitialRAMPercentage=50.0
+port: 8088
+loggingProcessing:
+  streamAutoCreate: true
+  topicAutoCreate: true
+
+confluentSupportMetricsEnable: false
+internalTopicReplicas: 1
+
+# Ingress configuration
+ingress:
+  enabled: false
+  # Used to create Ingress record (should used with service.type: ClusterIP).
+  hosts:
+    # - ksqldb.domain.com
+  # The ingress path. Useful to host ksqlDB in a subpath.
+  path: /
+  labels:
+    # Used to add custom labels to the Ingress
+    # Useful if for example you have multiple Ingress controllers and want your Ingress controllers to bind to specific Ingresses
+    # traffic: internal
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  tls:
+    # Secrets must be manually created in the namespace.
+    # - secretName: ksqldb-tls
+    #   hosts:
+    #     - ksqldb.domain.com
+
+## ksqlDB Headless mode deployment
+## When a queries file is specified, ksqlDB will be deployed in headless mode
+## ref: https://docs.ksqldb.io/en/latest/operate-and-deploy/installation/server-config/#start-headless-ksqldb-server-by-using-the-configuration-file
+queriesFileConfigMap:
+
+## Kafka Cluster Configuration
+kafka:
+  ## If outside or custom kafka a bootstrap server is required
+  bootstrapServers: 
+
+## Schema Registry Configuration
+schema-registry:
+  ## If outside or custom a URL and port are required to connect. Remember to include the protocol http:// or https://
+  url:
+
+## Kafka Connect Configuration
+kafka-connect:
+  ## If outside or custom a URL and port are required to connect. Remember to include the protocol http:// or https://
+  url:
+
+## Monitoring
+## JMX Settings
+## ref: https://docs.confluent.io/current/ksql/docs/operations.html
+jmx:
+  port: 5555
+
+## Prometheus Exporter Configuration
+## ref: https://prometheus.io/docs/instrumenting/exporters/
+prometheus:
+  ## JMX Exporter Configuration
+  ## ref: https://github.com/prometheus/jmx_exporter
+  jmx:
+    enabled: true
+    image: solsson/kafka-prometheus-jmx-exporter@sha256
+    imageTag: 6f82e2b0464f50da8104acd7363fb9b995001ddff77d248379f8788e78946143
+    imagePullPolicy: IfNotPresent
+    port: 5556
+
+    ## Resources configuration for the JMX exporter container.
+    ## See the `resources` documentation above for details.
+    resources: {}
+
+## Enable auth basic
+basicAuth:
+  enabled: false
+  roles: ""
+  realm: "KsqlServer-Props"
+  existingSecretUsers: ""
+  existingSecretJaas: ""
+  skipPaths: "/,/info,/healthcheck"
+
+## Configure Liveness and Readiness Probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 30
+  failureThreshold: 10
+  successThreshold: 1
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 30
+  failureThreshold: 10
+  successThreshold: 1
+
+## Configure Pod Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+podSecurityContext: 
+  fsGroup: 1000
+
+## Configure Container Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsUser: 1000
+  runAsGroup: 1000
+  capabilities:
+    drop:
+    - ALL
+
+## Configure Resources for Containers
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+resources:
+  {}
+  # limits:
+  #   cpu: 200m
+  #   memory: 512Mi
+  # requests:
+  #   cpu: 200m
+  #   memory: 256Mi
+
+## Configure nodeSelector Node labels for pod assignment
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+## ref:  https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+nodeSelector: {}
+tolerations: {}
+affinity: {}
