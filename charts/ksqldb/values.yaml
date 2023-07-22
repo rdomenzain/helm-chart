@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-serviceAccountName: 
+serviceAccountName: ""
 
 ## Image Info
 ## ref: https://hub.docker.com/r/confluentinc/ksqldb-server
@@ -61,22 +61,22 @@ ingress:
 ## ksqlDB Headless mode deployment
 ## When a queries file is specified, ksqlDB will be deployed in headless mode
 ## ref: https://docs.ksqldb.io/en/latest/operate-and-deploy/installation/server-config/#start-headless-ksqldb-server-by-using-the-configuration-file
-queriesFileConfigMap:
+queriesFileConfigMap: {}
 
 ## Kafka Cluster Configuration
 kafka:
   ## If outside or custom kafka a bootstrap server is required
-  bootstrapServers: 
+  bootstrapServers: ""
 
 ## Schema Registry Configuration
 schema-registry:
   ## If outside or custom a URL and port are required to connect. Remember to include the protocol http:// or https://
-  url:
+  url: ""
 
 ## Kafka Connect Configuration
 kafka-connect:
   ## If outside or custom a URL and port are required to connect. Remember to include the protocol http:// or https://
-  url:
+  url: ""
 
 ## Monitoring
 ## JMX Settings
@@ -128,7 +128,7 @@ readinessProbe:
 
 ## Configure Pod Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-podSecurityContext: 
+podSecurityContext:
   fsGroup: 1000
 
 ## Configure Container Security Context
