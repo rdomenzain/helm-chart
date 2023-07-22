@@ -12,7 +12,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   pullPolicy: IfNotPresent
-imagePullSecrets:  []
+imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
@@ -143,8 +143,7 @@ securityContext:
 
 ## Configure Resources for Containers
 ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-resources:
-  {}
+resources: {}
   # limits:
   #   cpu: 200m
   #   memory: 512Mi
