@@ -43,8 +43,8 @@ The following table lists the configurable parameters of the Metabase chart and 
 | image.registry         | docker.io                        | Registry for the ksqlDB image                         |
 | image.repository       | confluentinc/ksqldb-server       | Repository for the ksqlDB image                       |
 | image.tag              |                                  | Tag for the ksqlDB image                              |
-| image.pullPolicy       | IfNotPresent                     | Image pull policy for the ksqlDB container           |
-| imagePullSecrets       | []                               | Image pull secrets for private image repositories    |
+| image.pullPolicy       | IfNotPresent                     | Image pull policy for the ksqlDB container            |
+| imagePullSecrets       | []                               | Image pull secrets for private image repositories     |
 
 ### Deployment Name
 
@@ -55,15 +55,15 @@ The following table lists the configurable parameters of the Metabase chart and 
 
 ### ksqlDB Configuration
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| configurationOverrides | {}                               | Overrides for ksqlDB server configuration properties |
-| replicaCount           | 1                                | Number of replicas for ksqlDB deployment             |
-| port                   | 8088                             | Port on which ksqlDB server will listen               |
-| loggingProcessing.streamAutoCreate | true                     | Automatically create streams in ksqlDB                |
-| loggingProcessing.topicAutoCreate  | true                     | Automatically create topics in ksqlDB                 |
-| confluentSupportMetricsEnable      | false                    | Enable Confluent Support Metrics                     |
-| internalTopicReplicas  | 1                                | Number of replicas for internal ksqlDB topics         |
+| Parameter                          | Default Value        | Description                                           |
+|------------------------------------|----------------------|-------------------------------------------------------|
+| configurationOverrides             | {}                   | Overrides for ksqlDB server configuration properties  |
+| replicaCount                       | 1                    | Number of replicas for ksqlDB deployment              |
+| port                               | 8088                 | Port on which ksqlDB server will listen               |
+| loggingProcessing.streamAutoCreate | true                 | Automatically create streams in ksqlDB                |
+| loggingProcessing.topicAutoCreate  | true                 | Automatically create topics in ksqlDB                 |
+| confluentSupportMetricsEnable      | false                | Enable Confluent Support Metrics                      |
+| internalTopicReplicas              | 1                    | Number of replicas for internal ksqlDB topics         |
 
 ### Ingress Configuration
 
@@ -86,93 +86,93 @@ The following table lists the configurable parameters of the Metabase chart and 
 
 | Parameter              | Default Value                    | Description                                           |
 |------------------------|----------------------------------|-------------------------------------------------------|
-| kafka.bootstrapServers |                                  | Bootstrap servers for the Kafka cluster               |
+| kafka.bootstrapServers | kafka:9092                       | Bootstrap servers for the Kafka cluster               |
 
 ### Schema Registry Configuration
 
 | Parameter              | Default Value                    | Description                                           |
 |------------------------|----------------------------------|-------------------------------------------------------|
-| schema-registry.url    |                                  | URL for the Schema Registry                            |
+| schema-registry.url    | schema-registry:8081             | URL for the Schema Registry                           |
 
 ### Kafka Connect Configuration
 
 | Parameter              | Default Value                    | Description                                           |
 |------------------------|----------------------------------|-------------------------------------------------------|
-| kafka-connect.url      |                                  | URL for Kafka Connect                                  |
+| kafka-connect.url      | kafka-connect:8083               | URL for Kafka Connect                                 |
 
 ### Monitoring Configuration
 
 | Parameter              | Default Value                    | Description                                           |
 |------------------------|----------------------------------|-------------------------------------------------------|
-| jmx.port               | 5555                             | JMX port for ksqlDB monitoring                         |
+| jmx.port               | 5555                             | JMX port for ksqlDB monitoring                        |
 
 ### Prometheus Exporter Configuration
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| prometheus.jmx.enabled | true                             | Enable Prometheus JMX Exporter                        |
-| prometheus.jmx.image   | solsson/kafka-prometheus-jmx-exporter@sha256 | Prometheus JMX Exporter image        |
-| prometheus.jmx.imageTag| 6f82e2b0464f50da8104acd7363fb9b995001ddff77d248379f8788e78946143 | Prometheus JMX Exporter image tag   |
-| prometheus.jmx.imagePullPolicy | IfNotPresent              | Image pull policy for Prometheus JMX Exporter         |
-| prometheus.jmx.port    | 5556                             | Prometheus JMX Exporter port                           |
-| prometheus.jmx.resources| {}                              | Resources for Prometheus JMX Exporter container       |
+| Parameter                      | Default Value                                                    | Description                                     |
+|--------------------------------|------------------------------------------------------------------|-------------------------------------------------|
+| prometheus.jmx.enabled         | true                                                             | Enable Prometheus JMX Exporter                  |
+| prometheus.jmx.image           | solsson/kafka-prometheus-jmx-exporter@sha256                     | Prometheus JMX Exporter image                   |
+| prometheus.jmx.imageTag        | 6f82e2b0464f50da8104acd7363fb9b995001ddff77d248379f8788e78946143 | Prometheus JMX Exporter image tag               |
+| prometheus.jmx.imagePullPolicy | IfNotPresent                                                     | Image pull policy for Prometheus JMX Exporter   |
+| prometheus.jmx.port            | 5556                                                             | Prometheus JMX Exporter port                    |
+| prometheus.jmx.resources       | {}                                                               | Resources for Prometheus JMX Exporter container |
 
 ### Basic Authentication Configuration
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| basicAuth.enabled      | false                            | Enable basic authentication for ksqlDB server         |
-| basicAuth.roles        | ""                               | Roles for basic authentication                        |
-| basicAuth.realm        | "KsqlServer-Props"               | Realm for basic authentication                        |
-| basicAuth.existingSecretUsers | ""                         | Existing secret for user credentials                   |
+| Parameter                     | Default Value              | Description                                           |
+|-------------------------------|----------------------------|-------------------------------------------------------|
+| basicAuth.enabled             | false                      | Enable basic authentication for ksqlDB server         |
+| basicAuth.roles               | ""                         | Roles for basic authentication                        |
+| basicAuth.realm               | "KsqlServer-Props"         | Realm for basic authentication                        |
+| basicAuth.existingSecretUsers | ""                         | Existing secret for user credentials                  |
 | basicAuth.existingSecretJaas  | ""                         | Existing secret for JAAS configuration                |
-| basicAuth.skipPaths    | "/,/info,/healthcheck"           | Paths to skip basic authentication                     |
+| basicAuth.skipPaths           | "/,/info,/healthcheck"     | Paths to skip basic authentication                    |
 
 ### Liveness and Readiness Probes Configuration
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| livenessProbe.enabled  | true                             | Enable liveness probe for ksqlDB server                |
-| livenessProbe.initialDelaySeconds | 60                       | Initial delay for liveness probe                       |
-| livenessProbe.periodSeconds       | 10                       | Probe period for liveness probe                        |
-| livenessProbe.timeoutSeconds      | 30                       | Probe timeout for liveness probe                       |
-| livenessProbe.failureThreshold    | 10                       | Failure threshold for liveness probe                   |
-| livenessProbe.successThreshold    | 1                        | Success threshold for liveness probe                   |
-| readinessProbe.enabled | true                             | Enable readiness probe for ksqlDB server               |
-| readinessProbe.initialDelaySeconds | 60                       | Initial delay for readiness probe                      |
-| readinessProbe.periodSeconds       | 10                       | Probe period for readiness probe                       |
-| readinessProbe.timeoutSeconds      | 30                       | Probe timeout for readiness probe                      |
-| readinessProbe.failureThreshold    | 10                       | Failure threshold for readiness probe                  |
-| readinessProbe.successThreshold    | 1                        | Success threshold for readiness probe                  |
+| Parameter                          | Default Value            | Description                                           |
+|------------------------------------|--------------------------|-------------------------------------------------------|
+| livenessProbe.enabled              | true                     | Enable liveness probe for ksqlDB server               |
+| livenessProbe.initialDelaySeconds  | 60                       | Initial delay for liveness probe                      |
+| livenessProbe.periodSeconds        | 10                       | Probe period for liveness probe                       |
+| livenessProbe.timeoutSeconds       | 30                       | Probe timeout for liveness probe                      |
+| livenessProbe.failureThreshold     | 10                       | Failure threshold for liveness probe                  |
+| livenessProbe.successThreshold     | 1                        | Success threshold for liveness probe                  |
+| readinessProbe.enabled             | true                     | Enable readiness probe for ksqlDB server              |
+| readinessProbe.initialDelaySeconds | 60                       | Initial delay for readiness probe                     |
+| readinessProbe.periodSeconds       | 10                       | Probe period for readiness probe                      |
+| readinessProbe.timeoutSeconds      | 30                       | Probe timeout for readiness probe                     |
+| readinessProbe.failureThreshold    | 10                       | Failure threshold for readiness probe                 |
+| readinessProbe.successThreshold    | 1                        | Success threshold for readiness probe                 |
 
 ### Pod Security Context Configuration
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| podSecurityContext.fsGroup | 1000                          | fsGroup for ksqlDB Pod Security Context                |
+| Parameter                  | Default Value                 | Description                                           |
+|----------------------------|-------------------------------|-------------------------------------------------------|
+| podSecurityContext.fsGroup | 1000                          | fsGroup for ksqlDB Pod Security Context               |
 
 ### Container Security Context Configuration
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| securityContext.allowPrivilegeEscalation | false             | Allow privilege escalation for ksqlDB container     |
-| securityContext.runAsUser | 1000                             | User ID for ksqlDB container                           |
-| securityContext.runAsGroup | 1000                            | Group ID for ksqlDB container                          |
-| securityContext.capabilities.drop | ALL                     | Drop Linux capabilities for ksqlDB container          |
+| Parameter                                | Default Value     | Description                                           |
+|------------------------------------------|-------------------|-------------------------------------------------------|
+| securityContext.allowPrivilegeEscalation | false             | Allow privilege escalation for ksqlDB container       |
+| securityContext.runAsUser                | 1000              | User ID for ksqlDB container                          |
+| securityContext.runAsGroup               | 1000              | Group ID for ksqlDB container                         |
+| securityContext.capabilities.drop        | ALL               | Drop Linux capabilities for ksqlDB container          |
 
 ### Container Resources Configuration
 
 | Parameter              | Default Value                    | Description                                           |
 |------------------------|----------------------------------|-------------------------------------------------------|
-| resources              | {}                               | Resource limits and requests for ksqlDB container      |
+| resources              | {}                               | Resource limits and requests for ksqlDB container     |
 
 ### NodeSelector, Tolerations, and Affinity Configuration
 
 | Parameter              | Default Value                    | Description                                           |
 |------------------------|----------------------------------|-------------------------------------------------------|
 | nodeSelector           | {}                               | Node labels for pod assignment                        |
-| tolerations            | {}                               | Tolerations for pod assignment                         |
-| affinity               | {}                               | Affinity rules for pod assignment                      |
+| tolerations            | {}                               | Tolerations for pod assignment                        |
+| affinity               | {}                               | Affinity rules for pod assignment                     |
 
 The above parameters map to the env variables defined in the [ksqlDB configuration](https://docs.ksqldb.io/en/latest/operate-and-deploy/installation/server-config/) documentation. For more information please refer to the [ksqlDB documentation](https://docs.ksqldb.io/en/latest/operate-and-deploy/installation/server-config/).
 
