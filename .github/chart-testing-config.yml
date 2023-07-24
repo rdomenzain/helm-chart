@@ -5,5 +5,5 @@ remote: origin
 target-branch: main
 chart-dirs:
   - charts
-helm-extra-args: --timeout 30m
+helm-extra-args: --timeout 60m
 debug: true
