@@ -92,6 +92,26 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/kafka-connect-ui-1.0.0/kafka-connect-ui-1.0.0.tgz
     version: 1.0.0
+  ksqldb:
+  - apiVersion: v2
+    appVersion: 0.29.0
+    created: "2023-08-01T05:35:46.981560247Z"
+    description: A Helm chart for Confluent ksqlDB on Kubernetes
+    digest: 09067eb1c02a3c36a76812305b0a6bb29c5aa6ba81656340a17f4be26de01019
+    home: https://github.com/rdomenzain/helm-chart/tree/main/charts/ksqldb-server
+    icon: https://svn.apache.org/repos/asf/comdev/project-logos/originals/kafka.svg
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: ksqldb
+    sources:
+    - https://github.com/rdomenzain/helm-chart
+    - https://docs.confluent.io/platform/current/ksqldb/index.html
+    - https://ksqldb.io
+    type: application
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/ksqldb-1.0.0/ksqldb-1.0.0.tgz
+    version: 1.0.0
   metabase:
   - apiVersion: v2
     appVersion: v0.46.6.4
@@ -306,4 +326,4 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/weblate-0.0.1/weblate-0.0.1.tgz
     version: 0.0.1
-generated: "2023-08-01T04:58:50.222654947Z"
+generated: "2023-08-01T05:35:46.981597148Z"
