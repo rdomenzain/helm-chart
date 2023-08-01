@@ -4,8 +4,9 @@ chart-repos:
 remote: origin
 target-branch: main
 chart-dirs:
-  - charts
-excluded-charts:
-  - charts/ksqldb
-helm-extra-args: --timeout 60m
+  - charts/kafka-connect
+  - charts/kafka-connect-ui
+  - charts/metabase
+  - charts/weblate
+helm-extra-args: --timeout 15m
 debug: true
