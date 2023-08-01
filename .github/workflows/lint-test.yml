@@ -42,7 +42,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --config .github/chart-testing-config.yml
+        run: ct install --config .github/chart-testing-config.yml --excluded-charts ksqldb
       
       - name: Run chart-testing (upgrade)
-        run: ct install --upgrade --config .github/chart-testing-config.yml
+        run: ct install --upgrade --config .github/chart-testing-config.yml --excluded-charts ksqldb
