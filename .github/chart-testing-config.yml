@@ -8,5 +8,5 @@ chart-dirs:
   - charts/kafka-connect-ui
   - charts/metabase
   - charts/weblate
-helm-extra-args: --timeout 15m
+helm-extra-args: --timeout 30m
 debug: true
