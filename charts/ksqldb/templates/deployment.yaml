@@ -1,0 +1,187 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ksqldb.fullname" . }}
+  labels:
+    {{- include "ksqldb.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ksqldb.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- if or .Values.podAnnotations .Values.prometheus.jmx.enabled }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.prometheus.jmx.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.prometheus.jmx.port | quote }}
+        {{- end }}
+      {{- end }}
+      labels:
+        {{- include "ksqldb.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      nodeSelector:
+      {{- if .Values.nodeSelector }}
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      tolerations:
+      {{- if .Values.tolerations }}
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
+      affinity:
+      {{- if .Values.affinity }}
+        {{- toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
+      containers:
+        {{- if .Values.prometheus.jmx.enabled }}
+        - name: prometheus-jmx-exporter
+          image: "{{ .Values.prometheus.jmx.image }}:{{ .Values.prometheus.jmx.imageTag }}"
+          imagePullPolicy: "{{ .Values.prometheus.jmx.imagePullPolicy }}"
+          command:
+          - java
+          - -XX:+UnlockExperimentalVMOptions
+          - -XX:+UseCGroupMemoryLimitForHeap
+          - -XX:MaxRAMFraction=1
+          - -XshowSettings:vm
+          - -jar
+          - jmx_prometheus_httpserver.jar
+          - {{ .Values.prometheus.jmx.port | quote }}
+          - /etc/jmx-ksql-server/jmx-ksql-server-prometheus.yml
+          ports:
+          - containerPort: {{ .Values.prometheus.jmx.port }}
+          resources:
+{{ toYaml .Values.prometheus.jmx.resources | indent 12 }}
+          volumeMounts:
+          - name: jmx-config
+            mountPath: /etc/jmx-ksql-server
+        {{- end }}
+        - name: {{ .Chart.Name }}
+        {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: KSQL_KSQL_SERVICE_ID
+              value: "{{ include "ksqldb.service.id" . }}_ksqldb_"
+            - name: KSQL_BOOTSTRAP_SERVERS
+              value: {{ include "ksqldb.kafka.bootstrapServers" . | quote }}
+            - name: KSQL_KSQL_STREAMS_BOOTSTRAP_SERVERS
+              value: {{ include "ksqldb.kafka.bootstrapServers" . | quote }}
+            - name: KSQL_KSQL_SCHEMA_REGISTRY_URL
+              value: {{ include "ksqldb.schema-registry.url" . | quote }}
+            - name: KSQL_KSQL_CONNECT_URL
+              value: {{ include "ksqldb.kafka-connect.url" . | quote }}
+            - name: KSQL_LISTENERS
+              value: "http://0.0.0.0:{{ .Values.port | int }}"
+            - name: KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE
+              value: {{ .Values.loggingProcessing.streamAutoCreate | quote }}
+            - name: KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE
+              value: {{ .Values.loggingProcessing.topicAutoCreate | quote }}
+            - name: KSQL_CONFLUENT_SUPPORT_METRICS_ENABLE
+              value: {{ .Values.confluentSupportMetricsEnable | quote }}
+            - name: KSQL_KSQL_SINK_REPLICAS
+              value: {{ .Values.internalTopicReplicas | quote }}
+            - name: KSQL_KSQL_STREAMS_REPLICATION_FACTOR
+              value: {{ .Values.internalTopicReplicas | quote }}
+            - name: KSQL_KSQL_INTERNAL_TOPIC_REPLICAS
+              value: {{ .Values.internalTopicReplicas | quote }}
+            {{- if .Values.basicAuth.enabled }}
+            - name: KSQL_OPTS
+              value: -Djava.security.auth.login.config=/etc/ksql/ksql-jaas.conf
+            - name: KSQL_AUTHENTICATION_METHOD
+              value: BASIC
+            - name: KSQL_AUTHENTICATION_ROLES
+              value: {{ .Values.basicAuth.roles | quote }}
+            - name: KSQL_AUTHENTICATION_REALM
+              value: {{ .Values.basicAuth.realm | quote }}
+            - name: KSQL_AUTHENTICATION_SKIP_PATHS
+              value: {{ .Values.basicAuth.skipPaths | quote }}
+            {{- end }}
+            {{- if .Values.queriesFileConfigMap }}
+            - name: KSQL_KSQL_QUERIES_FILE
+              value: /etc/ksql/queries/queries.sql
+            {{- end }}
+            {{- range $key, $value := .Values.configurationOverrides }}
+            - name: {{ printf "KSQL_%s" $key | replace "." "_" | upper | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- if .Values.jmx.port }}
+            - name: JMX_PORT
+              value: "{{ .Values.jmx.port }}"
+            {{- end }}
+          ports:
+            - name: tcp
+              containerPort: {{ .Values.port }}
+              protocol: TCP
+            {{- if .Values.prometheus.jmx.enabled }}
+            - name: jmx
+              containerPort: {{ .Values.jmx.port }}
+            {{- end }}
+          {{- if and .Values.livenessProbe.enabled (not .Values.queriesFileConfigMap) }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: tcp
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if and .Values.readinessProbe.enabled (not .Values.queriesFileConfigMap) }}
+          readinessProbe:
+            httpGet:
+              path: 
+              port: tcp
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+          {{- end }}
+          volumeMounts:
+          {{- if .Values.queriesFileConfigMap }}
+          - name: ksql-queries
+            mountPath: /etc/ksql/queries
+          {{- end }}
+          {{- if .Values.basicAuth.enabled }}
+          - name: ksql-user-config-file
+            mountPath: /etc/ksql/ksql-users.properties
+            subPath: ksql-users.properties
+          - name: ksql-jass-config-file
+            mountPath: /etc/ksql/ksql-jaas.conf
+            subPath: ksql-jaas.conf
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      {{- if .Values.prometheus.jmx.enabled }}
+      - name: jmx-config
+        configMap:
+          name: {{ template "ksqldb.fullname" . }}-jmx-configmap
+      {{- end }}
+      {{- if .Values.queriesFileConfigMap }}
+      - name:  ksql-queries
+        configMap:
+          name: {{ .Values.queriesFileConfigMap }}
+      {{- end }}
+      {{- if .Values.basicAuth.enabled }}
+      - name: ksql-user-config-file
+        secret:
+          secretName: {{ .Values.basicAuth.existingSecretUsers }}
+      - name: ksql-jass-config-file
+        secret:
+          secretName: {{ .Values.basicAuth.existingSecretJaas }}
+      {{- end }}

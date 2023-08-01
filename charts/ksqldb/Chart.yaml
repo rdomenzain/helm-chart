@@ -1,0 +1,15 @@
+apiVersion: v2
+description: A Helm chart for Confluent ksqlDB on Kubernetes
+name: ksqldb
+type: application
+version: 1.0.0
+appVersion: 0.29.0
+home: https://github.com/rdomenzain/helm-chart/tree/main/charts/ksqldb-server
+sources:
+  - https://github.com/rdomenzain/helm-chart
+  - https://docs.confluent.io/platform/current/ksqldb/index.html
+  - https://ksqldb.io
+maintainers:
+  - name: rdomenzain
+    url: https://github.com/rdomenzain/
+icon: https://svn.apache.org/repos/asf/comdev/project-logos/originals/kafka.svg
