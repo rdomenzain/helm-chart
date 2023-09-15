@@ -6,7 +6,7 @@ This chart bootstraps a ksqlDB running in headless mode.
 {{- else }}
 This chart bootstraps a ksqlDB that can be accessed from within your cluster:
 
-    {{ include "ksqldb.fullname" . }}.{{ .Release.Namespace }}:{{ .Values.port }}
+    {{ include "ksqldb.fullname" . }}.{{ .Release.Namespace }}:{{ .Values.service.port }}
 
 {{- end }}
 
