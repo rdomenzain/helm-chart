@@ -26,10 +26,20 @@ configurationOverrides: {}
 ## ref: https://docs.ksqldb.io/en/latest/operate-and-deploy/capacity-planning/#scaling-ksqldb
 replicaCount: 1
 
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8088
+  clusterIP: ""
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  externalTrafficPolicy: Cluster
+  annotations: {}
+  sessionAffinity: None
+
 ## ksqlDB Configuration
 ## ref: https://docs.ksqldb.io/en/latest/operate-and-deploy/installation/install-ksqldb-with-docker/
 # heapOpts: -XX:MaxRAMPercentage=50.0 -XX:InitialRAMPercentage=50.0
-port: 8088
 loggingProcessing:
   streamAutoCreate: true
   topicAutoCreate: true

@@ -59,22 +59,30 @@ The following table lists the configurable parameters of the Metabase chart and 
 |------------------------------------|----------------------|-------------------------------------------------------|
 | configurationOverrides             | {}                   | Overrides for ksqlDB server configuration properties  |
 | replicaCount                       | 1                    | Number of replicas for ksqlDB deployment              |
-| port                               | 8088                 | Port on which ksqlDB server will listen               |
 | loggingProcessing.streamAutoCreate | true                 | Automatically create streams in ksqlDB                |
 | loggingProcessing.topicAutoCreate  | true                 | Automatically create topics in ksqlDB                 |
 | confluentSupportMetricsEnable      | false                | Enable Confluent Support Metrics                      |
 | internalTopicReplicas              | 1                    | Number of replicas for internal ksqlDB topics         |
 
-### Ingress Configuration
+### Traffic Exposure Parameters
 
-| Parameter              | Default Value                    | Description                                           |
-|------------------------|----------------------------------|-------------------------------------------------------|
-| ingress.enabled        | false                            | Enable Ingress for ksqlDB server                      |
-| ingress.hosts          | []                               | Hosts for Ingress resource                            |
-| ingress.path           | /                                | Path for Ingress resource                             |
-| ingress.labels         | {}                               | Labels for Ingress resource                           |
-| ingress.annotations    | {}                               | Annotations for Ingress resource                      |
-| ingress.tls            | []                               | TLS configuration for Ingress resource                |
+
+| Parameter                        | Default Value          | Description                                           |
+|----------------------------------|------------------------|-------------------------------------------------------|
+| service.type                     | ClusterIP              | Service type for ksqlDB server                        |
+| service.port                     | 8088                   | Service port for ksqlDB server                        |
+| service.clusterIP                | ""                     | Cluster IP for ksqlDB server service                  |
+| service.loadBalancerIP           | ""                     | Load balancer IP for ksqlDB server service            |
+| service.loadBalancerSourceRanges | []                     | Load balancer source ranges for ksqlDB server service |
+| service.externalTrafficPolicy    | Cluster                | External traffic policy for ksqlDB server service     |
+| service.annotations              | {}                     | Annotations for ksqlDB server service                 |
+| service.sessionAffinity          | None                   | Session affinity for ksqlDB server service            |
+| ingress.enabled                  | false                  | Enable Ingress for ksqlDB server                      |
+| ingress.hosts                    | []                     | Hosts for Ingress resource                            |
+| ingress.path                     | /                      | Path for Ingress resource                             |
+| ingress.labels                   | {}                     | Labels for Ingress resource                           |
+| ingress.annotations              | {}                     | Annotations for Ingress resource                      |
+| ingress.tls                      | []                     | TLS configuration for Ingress resource                |
 
 ### ksqlDB Headless Mode Configuration
 

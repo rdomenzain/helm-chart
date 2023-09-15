@@ -4,11 +4,32 @@ metadata:
   name: {{ include "ksqldb.fullname" . }}
   labels:
     {{- include "ksqldb.labels" . | nindent 4 }}
+    {{- if .Values.service.annotations }}
+    annotations:
+      {{- range $key, $value := .Values.service.annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.service.type }}
+  {{- if .Values.service.clusterIP }}
+  clusterIP: {{ .Values.service.clusterIP }}
+  {{- end }}
+  {{- if (or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort")) }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy | quote }}
+  {{- end }}
+  {{- if eq .Values.service.type "LoadBalancer" }}
+  loadBalancerSourceRanges: {{ .Values.service.loadBalancerSourceRanges }}
+  {{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.service.sessionAffinity }}
+  sessionAffinity: {{ .Values.service.sessionAffinity }}
+  {{- end }}
   ports:
   - name: tcp
-    port: {{ .Values.port }}
+    port: {{ .Values.service.port }}
     protocol: TCP
     targetPort: tcp
   {{- if .Values.prometheus.jmx.enabled }}
