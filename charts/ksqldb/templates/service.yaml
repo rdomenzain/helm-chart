@@ -4,12 +4,8 @@ metadata:
   name: {{ include "ksqldb.fullname" . }}
   labels:
     {{- include "ksqldb.labels" . | nindent 4 }}
-    {{- if .Values.service.annotations }}
-    annotations:
-      {{- range $key, $value := .Values.service.annotations }}
-        {{ $key }}: {{ $value | quote }}
-      {{- end }}
-    {{- end }}
+  annotations:
+    {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   {{- if .Values.service.clusterIP }}
