@@ -95,6 +95,25 @@ entries:
   ksqldb:
   - apiVersion: v2
     appVersion: 0.29.0
+    created: "2023-09-15T20:16:25.545507408Z"
+    description: A Helm chart for Confluent ksqlDB on Kubernetes
+    digest: 1825e37b536acf65a4b7c8afd867b9bf68b55004a40646c174c8461dd9c3fc95
+    home: https://github.com/rdomenzain/helm-chart/tree/main/charts/ksqldb-server
+    icon: https://svn.apache.org/repos/asf/comdev/project-logos/originals/kafka.svg
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: ksqldb
+    sources:
+    - https://github.com/rdomenzain/helm-chart
+    - https://docs.confluent.io/platform/current/ksqldb/index.html
+    - https://ksqldb.io
+    type: application
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/ksqldb-1.1.1/ksqldb-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 0.29.0
     created: "2023-09-15T19:51:30.245559889Z"
     description: A Helm chart for Confluent ksqlDB on Kubernetes
     digest: e622602201175bc9f8df3932c0ce281fcef5011e5ab66bc92fafae79a62ae34d
@@ -381,4 +400,4 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/weblate-0.0.1/weblate-0.0.1.tgz
     version: 0.0.1
-generated: "2023-09-15T19:51:30.245637393Z"
+generated: "2023-09-15T20:16:25.545579609Z"
