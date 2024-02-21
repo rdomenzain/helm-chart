@@ -49,7 +49,7 @@ We would like to express our gratitude to [JetBrains](https://www.jetbrains.com/
 
 Their tools greatly contribute to the success of our projects.
 
-[![JetBrains](https://resources.jetbrains.com/storage/products/jetbrains/img/meta/preview.png =250x)](https://www.jetbrains.com/)
+<img src="https://resources.jetbrains.com/storage/products/jetbrains/img/meta/preview.png" width="50%" alt="JetBrains Open Source License" />
 
 ## License
 
