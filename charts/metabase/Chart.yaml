@@ -3,7 +3,7 @@ description: The easy, open source way for everyone in your company to ask quest
 name: metabase
 type: application
 version: 1.5.0
-appVersion: v0.50.18.3
+appVersion: v0.50.21
 home: https://github.com/rdomenzain/charts/tree/main/charts/metabase
 icon: http://www.metabase.com/images/logo.svg
 maintainers:
