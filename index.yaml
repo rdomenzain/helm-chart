@@ -152,6 +152,24 @@ entries:
     version: 1.0.0
   metabase:
   - apiVersion: v2
+    appVersion: v0.51.2
+    created: "2024-11-08T19:09:20.390472919Z"
+    description: The easy, open source way for everyone in your company to ask questions
+      and learn from data.
+    digest: 61c70a74fb241e3783860c12931cb7b311ac30173495ef99dc5134559cfaec7c
+    home: https://github.com/rdomenzain/charts/tree/main/charts/metabase
+    icon: http://www.metabase.com/images/logo.svg
+    maintainers:
+    - name: rdomenzain
+      url: https://github.com/rdomenzain/
+    name: metabase
+    sources:
+    - https://github.com/rdomenzain/helm-chart/tree/main/charts/metabase
+    type: application
+    urls:
+    - https://github.com/rdomenzain/helm-chart/releases/download/metabase-1.6.0/metabase-1.6.0.tgz
+    version: 1.6.0
+  - apiVersion: v2
     appVersion: v0.50.21
     created: "2024-08-23T18:23:55.39478769Z"
     description: The easy, open source way for everyone in your company to ask questions
@@ -580,4 +598,4 @@ entries:
     urls:
     - https://github.com/rdomenzain/helm-chart/releases/download/weblate-0.0.1/weblate-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-23T18:23:55.394969879Z"
+generated: "2024-11-08T19:09:20.390683174Z"
